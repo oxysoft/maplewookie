@@ -47,7 +47,6 @@
   <ItemGroup>
     <Compile Include="Character.cs" />
     <Compile Include="DynamicXml.cs" />
-    <Compile Include="FastBitmap.cs" />
     <Compile Include="Form1.cs">
       <SubType>Form</SubType>
     </Compile>

@@ -1,16 +1,10 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
 using System.Drawing;
 using System.Drawing.Imaging;
-using System.Linq;
 using System.Runtime.InteropServices;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
-namespace maplechargen {
+namespace maplewookie {
 	public partial class Form1 : Form {
 		public Bitmap bmp;
 
@@ -29,8 +23,8 @@ namespace maplechargen {
 			Graphics g = Graphics.FromImage(bmp);
 			g.Clear(Color.Transparent);
 
-			int xo = 100;
-			int yo = 100;
+			const int xo = 100;
+			const int yo = 100;
 
 			for (int i = 0; i < 1000; i++) {
 				g.Clear(Color.Transparent);
@@ -59,7 +53,6 @@ namespace maplechargen {
 
 				bool foundPixel = false;
 
-				// Find xMin
 				for (int x = 0; x < data.Width; x++) {
 					bool stop = false;
 					for (int y = 0; y < data.Height; y++) {
@@ -75,11 +68,9 @@ namespace maplechargen {
 						break;
 				}
 
-				// Image is empty...
 				if (!foundPixel)
 					return null;
 
-				// Find yMin
 				for (int y = 0; y < data.Height; y++) {
 					bool stop = false;
 					for (int x = xMin; x < data.Width; x++) {
@@ -94,7 +85,6 @@ namespace maplechargen {
 						break;
 				}
 
-				// Find xMax
 				for (int x = data.Width - 1; x >= xMin; x--) {
 					bool stop = false;
 					for (int y = yMin; y < data.Height; y++) {
@@ -109,7 +99,6 @@ namespace maplechargen {
 						break;
 				}
 
-				// Find yMax
 				for (int y = data.Height - 1; y >= yMin; y--) {
 					bool stop = false;
 					for (int x = xMin; x <= xMax; x++) {

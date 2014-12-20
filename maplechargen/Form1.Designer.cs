@@ -1,4 +1,4 @@
-﻿namespace maplechargen {
+﻿namespace maplewookie {
 	partial class Form1 {
 		/// <summary>
 		/// Required designer variable.
