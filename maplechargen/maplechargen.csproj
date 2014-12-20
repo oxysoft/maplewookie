@@ -7,8 +7,8 @@
     <ProjectGuid>{2A521C2F-4532-44D9-B3B1-546D4ADCC262}</ProjectGuid>
     <OutputType>WinExe</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>maplechargen</RootNamespace>
-    <AssemblyName>maplechargen</AssemblyName>
+    <RootNamespace>maplewookie</RootNamespace>
+    <AssemblyName>maplewookie</AssemblyName>
     <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
   </PropertyGroup>
@@ -67,6 +67,7 @@
     <Compile Include="Properties\Resources.Designer.cs">
       <AutoGen>True</AutoGen>
       <DependentUpon>Resources.resx</DependentUpon>
+      <DesignTime>True</DesignTime>
     </Compile>
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
