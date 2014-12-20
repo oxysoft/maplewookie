@@ -47,6 +47,10 @@
   <ItemGroup>
     <Compile Include="Character.cs" />
     <Compile Include="DynamicXml.cs" />
+    <Compile Include="Cache.cs" />
+    <Compile Include="elements\Face.cs" />
+    <Compile Include="elements\Hair.cs" />
+    <Compile Include="elements\Skin.cs" />
     <Compile Include="Form1.cs">
       <SubType>Form</SubType>
     </Compile>

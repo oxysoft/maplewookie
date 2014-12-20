@@ -26,10 +26,10 @@ namespace maplewookie {
 			const int xo = 100;
 			const int yo = 100;
 
-			for (int i = 0; i < 1000; i++) {
+			for (int i = 0; i < 1; i++) {
 				g.Clear(Color.Transparent);
-				Character c = Character.random(0);
-				c.render(g, xo, yo);
+				Character c = Character.Random(0);
+				c.Render(g, xo, yo);
 				TrimBitmap(bmp).Save(@"C:\output\" + i + ".png");
 			}
 

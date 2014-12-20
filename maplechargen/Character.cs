@@ -6,108 +6,73 @@ using System.IO;
 namespace maplewookie {
 	public class Character {
 		public static Random rand = new Random();
-		public const string gdpath = "C:/gd";
+		public const string Gdpath = "C:/gd";
 
 		public int skin, face, hair;
 		public int accface, acceye, accear;
 		public int hat, cape, coat, glove, longcoat, pants, shoes;
 		public int weapon, shield;
 
-		public void render(Graphics g, int x, int y) {
+		public void Render(Graphics g, int x, int y) {
 			g.SmoothingMode = SmoothingMode.None;
 			g.InterpolationMode = InterpolationMode.NearestNeighbor;
 
 			if (hair > 0)
-				if (File.Exists(gdpath + "/Hair/" + hair.ToString("D8") + ".img/default.hairBelowBody.png"))
-					renderHairBack(g, x, y);
+				Cache.GetHair(hair).RenderBack(this, g, x, y);
 
 			if (skin > 0)
-				renderBody(g, x, y);
+				Cache.GetSkin(skin).RenderBody(g, x, y);
 
 			if (shoes > 0)
-				renderShoes(g, x, y);
+				RenderShoes(g, x, y);
 
 			if (pants > 0)
-				renderPants(g, x, y);
+				RenderPants(g, x, y);
 
 			if (coat > 0)
-				renderCoatBody(g, x, y);
+				RenderCoatBody(g, x, y);
 
 			if (skin > 0)
-				renderHead(g, x, y);
+				Cache.GetSkin(skin).RenderHead(g, x, y);
 
 			string zAccFace = "";
 
 			if (accface > 0) {
-				dynamic xml = new DynamicXml(File.ReadAllText(gdpath + "/Accessory/" + accface.ToString("D8") + ".img/coord.xml"));
+				dynamic xml = new DynamicXml(File.ReadAllText(Gdpath + "/Accessory/" + accface.ToString("D8") + ".img/coord.xml"));
 				zAccFace = accface == 0 ? "" : xml._info.Z.Value;
 			}
 
 			if (skin > 0)
-				renderArm(g, x, y);
+				Cache.GetSkin(skin).RenderArm(g, x, y);
 
 			if (coat > 0)
-				renderCoatArm(g, x, y);
+				RenderCoatArm(g, x, y);
 
 			if (glove > 0)
-				renderGloveLeft(g, x, y);
+				RenderGloveLeft(g, x, y);
 		
 			if (glove > 0)
-				renderGloveRight(g, x, y);
+				RenderGloveRight(g, x, y);
 
 			if (zAccFace.Equals("accessoryFaceBelowFace"))
-				renderAccFace(g, x, y);
+				RenderAccFace(g, x, y);
 
 			if (face > 0)
-				renderFace(g, x, y);
+				Cache.GetFace(face).Render(g, x, y);
 
 			if (zAccFace.Equals("accessoryFace"))
-				renderAccFace(g, x, y);
+				RenderAccFace(g, x, y);
 
 			if (acceye > 0)
-				renderAccEye(g, x, y);
+				RenderAccEye(g, x, y);
 
 			if (hair > 0)
-				renderHair(g, x, y);
+				Cache.GetHair(hair).RenderFront(this, g, x, y);
 
 		}
 
-		private void renderHairBack(Graphics g, int x, int y) {
-			Image img = Image.FromFile(gdpath + "/Hair/" + hair.ToString("D8") + ".img/default.hairBelowBody.png");
-			dynamic xml = new DynamicXml(File.ReadAllText(gdpath + "/Hair/" + hair.ToString("D8") + ".img/coord.xml"));
-
-			int dx = Int32.Parse(xml._hairBelowBody.x.Value);
-			int dy = Int32.Parse(xml._hairBelowBody.y.Value);
-
-			g.DrawImage(img, x + dx + 15, y + dy + 12);
-		}
-
-		private void renderBody(Graphics g, int x, int y) {
-			string path = gdpath + "/Skin/" + skin.ToString("D8") + ".img/";
-			Image head = Image.FromFile(path + "front.head.png");
-			Image body = Image.FromFile(path + "stand1.0.body.png");
-
-			g.DrawImage(body, x + 7, y + head.Height - 2);
-		}
-
-		private void renderHead(Graphics g, int x, int y) {
-			string path = gdpath + "/Skin/" + skin.ToString("D8") + ".img/";
-			Image head = Image.FromFile(path + "front.head.png");
-
-			g.DrawImage(head, x, y);
-		}
-
-		private void renderArm(Graphics g, int x, int y) {
-			string path = gdpath + "/Skin/" + skin.ToString("D8") + ".img/";
-			Image head = Image.FromFile(path + "front.head.png");
-			Image body = Image.FromFile(path + "stand1.0.body.png");
-			Image arm = Image.FromFile(path + "stand1.0.arm.png");
-
-			g.DrawImage(arm, x + body.Width + 2, y + head.Height);
-		}
-
-		private void renderCoatBody(Graphics g, int x, int y) {
-			string path = gdpath + "/Coat/" + coat.ToString("D8") + ".img/";
+		private void RenderCoatBody(Graphics g, int x, int y) {
+			string path = Gdpath + "/Coat/" + coat.ToString("D8") + ".img/";
 			Image body = Image.FromFile(path + "stand1.0.mail.png");
 			dynamic xml = new DynamicXml(File.ReadAllText(path + "coord.xml"));
 
@@ -117,8 +82,8 @@ namespace maplewookie {
 			g.DrawImage(body, x + dx + 15, y + dy + 43);
 		}
 
-		private void renderCoatArm(Graphics g, int x, int y) {
-			string path = gdpath + "/Coat/" + coat.ToString("D8") + ".img/";
+		private void RenderCoatArm(Graphics g, int x, int y) {
+			string path = Gdpath + "/Coat/" + coat.ToString("D8") + ".img/";
 			if (File.Exists(path + "stand1.0.mailArm.png")) {
 				Image arm = Image.FromFile(path + "stand1.0.mailArm.png");
 				dynamic xml = new DynamicXml(File.ReadAllText(path + "coord.xml"));
@@ -130,8 +95,8 @@ namespace maplewookie {
 			}
 		}
 
-		private void renderGloveLeft(Graphics g, int x, int y) {
-			string path = gdpath + "/Glove/" + glove.ToString("D8") + ".img/";
+		private void RenderGloveLeft(Graphics g, int x, int y) {
+			string path = Gdpath + "/Glove/" + glove.ToString("D8") + ".img/";
 			if (File.Exists(path + "stand1.0.lGlove.png")) {
 				Image body = Image.FromFile(path + "stand1.0.lGlove.png");
 				dynamic xml = new DynamicXml(File.ReadAllText(path + "coord.xml"));
@@ -143,8 +108,8 @@ namespace maplewookie {
 			}
 		}
 
-		private void renderGloveRight(Graphics g, int x, int y) {
-			string path = gdpath + "/Glove/" + glove.ToString("D8") + ".img/";
+		private void RenderGloveRight(Graphics g, int x, int y) {
+			string path = Gdpath + "/Glove/" + glove.ToString("D8") + ".img/";
 			if (File.Exists(path + "stand1.0.rGlove.png")) {
 				Image body = Image.FromFile(path + "stand1.0.rGlove.png");
 				dynamic xml = new DynamicXml(File.ReadAllText(path + "coord.xml"));
@@ -156,8 +121,8 @@ namespace maplewookie {
 			}
 		}
 
-		private void renderShoes(Graphics g, int x, int y) {
-			string path = gdpath + "/Shoes/" + shoes.ToString("D8") + ".img/";
+		private void RenderShoes(Graphics g, int x, int y) {
+			string path = Gdpath + "/Shoes/" + shoes.ToString("D8") + ".img/";
 			Image body = Image.FromFile(path + "stand1.0.shoes.png");
 			dynamic xml = new DynamicXml(File.ReadAllText(path + "coord.xml"));
 
@@ -167,8 +132,8 @@ namespace maplewookie {
 			g.DrawImage(body, x + dx + 15, y + dy + 43);
 		}
 
-		private void renderPants(Graphics g, int x, int y) {
-			string path = gdpath + "/Pants/" + pants.ToString("D8") + ".img/";
+		private void RenderPants(Graphics g, int x, int y) {
+			string path = Gdpath + "/Pants/" + pants.ToString("D8") + ".img/";
 			Image body = Image.FromFile(path + "stand1.0.pants.png");
 			dynamic xml = new DynamicXml(File.ReadAllText(path + "coord.xml"));
 
@@ -178,32 +143,8 @@ namespace maplewookie {
 			g.DrawImage(body, x + dx + 15, y + dy + 43);
 		}
 
-		private void renderFace(Graphics g, int x, int y) {
-			string path = gdpath + "/Face/" + face.ToString("D8") + ".img/";
-			Image img = Image.FromFile(path + "default.face.png");
-			dynamic xml = new DynamicXml(File.ReadAllText(path + "coord.xml"));
-
-			int dx = Int32.Parse(xml._face.x.Value);
-			int dy = Int32.Parse(xml._face.y.Value);
-
-			g.DrawImage(img, x + dx + 15, y + dy + 12);
-		}
-
-		private void renderHair(Graphics g, int x, int y) {
-			string path = gdpath + "/Hair/" + hair.ToString("D8") + ".img/";
-			bool hatChanges = hat == 0 && File.Exists(path + "/default.hairOverHead.png");
-			string kind = (hatChanges) ? "hairOverHead" : "hair";
-			Image img = Image.FromFile(path + "default." + kind + ".png");
-			dynamic xml = new DynamicXml(File.ReadAllText(path + "coord.xml"));
-
-			int dx = Int32.Parse(hatChanges ? xml._hairOverHead.x.Value : xml._hair.x.Value);
-			int dy = Int32.Parse(hatChanges ? xml._hairOverHead.y.Value : xml._hair.y.Value);
-
-			g.DrawImage(img, x + dx + 15, y + dy + 12);
-		}
-
-		private void renderAccFace(Graphics g, int x, int y) {
-			string path = gdpath + "/Accessory/" + accface.ToString("D8") + ".img/";
+		private void RenderAccFace(Graphics g, int x, int y) {
+			string path = Gdpath + "/Accessory/" + accface.ToString("D8") + ".img/";
 			Image img = Image.FromFile(path + "default.default.png");
 			dynamic xml = new DynamicXml(File.ReadAllText(path + "coord.xml"));
 
@@ -213,8 +154,8 @@ namespace maplewookie {
 			g.DrawImage(img, x + dx + 15, y + dy + 12);
 		}
 		
-		private void renderAccEye(Graphics g, int x, int y) {
-			string path = gdpath + "/Accessory/" + acceye.ToString("D8") + ".img/";
+		private void RenderAccEye(Graphics g, int x, int y) {
+			string path = Gdpath + "/Accessory/" + acceye.ToString("D8") + ".img/";
 			Image img = Image.FromFile(path + "default.default.png");
 			dynamic xml = new DynamicXml(File.ReadAllText(path + "coord.xml"));
 
@@ -246,7 +187,7 @@ namespace maplewookie {
 		///  2 == female
 		/// </param>
 		/// <returns></returns>
-		public static Character random(int gender) {
+		public static Character Random(int gender) {
 			if (gender == 0)
 				gender = rand.Next(1, 3);
 
@@ -258,6 +199,9 @@ namespace maplewookie {
 				Shuffle(Ids.hair);
 			while (gender == 0 || (gender == 1 ? IsFemale(Ids.hair[0]) : IsMale(Ids.hair[0])));
 
+			//top kek
+			//code is actually a bit cleaner this way
+			//i wonder how much time is actually spent shuffling these arrays
 			Shuffle(Ids.accface);
 			Shuffle(Ids.acceye);
 			Shuffle(Ids.accear);
