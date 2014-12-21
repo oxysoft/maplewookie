@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Diagnostics;
 using System.Drawing;
 using System.Drawing.Drawing2D;
 using System.IO;
@@ -24,145 +25,43 @@ namespace maplewookie {
 				Cache.GetSkin(skin).RenderBody(g, x, y);
 
 			if (shoes > 0)
-				RenderShoes(g, x, y);
+				Cache.GetShoes(shoes).Render(g, x, y);
 
 			if (pants > 0)
-				RenderPants(g, x, y);
+				Cache.GetPants(pants).Render(g, x, y);
 
 			if (coat > 0)
-				RenderCoatBody(g, x, y);
+				Cache.GetCoat(coat).RenderBody(g, x, y);
 
 			if (skin > 0)
 				Cache.GetSkin(skin).RenderHead(g, x, y);
-
-			string zAccFace = "";
-
-			if (accface > 0) {
-				dynamic xml = new DynamicXml(File.ReadAllText(Gdpath + "/Accessory/" + accface.ToString("D8") + ".img/coord.xml"));
-				zAccFace = accface == 0 ? "" : xml._info.Z.Value;
-			}
 
 			if (skin > 0)
 				Cache.GetSkin(skin).RenderArm(g, x, y);
 
 			if (coat > 0)
-				RenderCoatArm(g, x, y);
+				Cache.GetCoat(coat).RenderArm(g, x, y);
 
 			if (glove > 0)
-				RenderGloveLeft(g, x, y);
-		
-			if (glove > 0)
-				RenderGloveRight(g, x, y);
+				Cache.GetGloves(glove).RenderLeft(g, x, y);
 
-			if (zAccFace.Equals("accessoryFaceBelowFace"))
-				RenderAccFace(g, x, y);
+			if (glove > 0)
+				Cache.GetGloves(glove).RenderRight(g, x, y);
+
+			if (accface > 0 && Cache.GetAccFace(accface).z == 0)
+				Cache.GetAccFace(accface).Render(g, x, y);
 
 			if (face > 0)
 				Cache.GetFace(face).Render(g, x, y);
 
-			if (zAccFace.Equals("accessoryFace"))
-				RenderAccFace(g, x, y);
+			if (accface > 0 && Cache.GetAccFace(accface).z == 1)
+				Cache.GetAccFace(accface).Render(g, x, y);
 
 			if (acceye > 0)
-				RenderAccEye(g, x, y);
+				Cache.GetAccFace(acceye).Render(g, x, y);
 
 			if (hair > 0)
 				Cache.GetHair(hair).RenderFront(this, g, x, y);
-
-		}
-
-		private void RenderCoatBody(Graphics g, int x, int y) {
-			string path = Gdpath + "/Coat/" + coat.ToString("D8") + ".img/";
-			Image body = Image.FromFile(path + "stand1.0.mail.png");
-			dynamic xml = new DynamicXml(File.ReadAllText(path + "coord.xml"));
-
-			int dx = Int32.Parse(xml._mail.stand1.x.Value);
-			int dy = Int32.Parse(xml._mail.stand1.y.Value);
-
-			g.DrawImage(body, x + dx + 15, y + dy + 43);
-		}
-
-		private void RenderCoatArm(Graphics g, int x, int y) {
-			string path = Gdpath + "/Coat/" + coat.ToString("D8") + ".img/";
-			if (File.Exists(path + "stand1.0.mailArm.png")) {
-				Image arm = Image.FromFile(path + "stand1.0.mailArm.png");
-				dynamic xml = new DynamicXml(File.ReadAllText(path + "coord.xml"));
-
-				int dx = Int32.Parse(xml._mailArm.stand1.x.Value);
-				int dy = Int32.Parse(xml._mailArm.stand1.y.Value);
-
-				g.DrawImage(arm, x + dx + 15, y + dy + 43);
-			}
-		}
-
-		private void RenderGloveLeft(Graphics g, int x, int y) {
-			string path = Gdpath + "/Glove/" + glove.ToString("D8") + ".img/";
-			if (File.Exists(path + "stand1.0.lGlove.png")) {
-				Image body = Image.FromFile(path + "stand1.0.lGlove.png");
-				dynamic xml = new DynamicXml(File.ReadAllText(path + "coord.xml"));
-
-				int dx = Int32.Parse(xml._lGlove.stand1.x.Value);
-				int dy = Int32.Parse(xml._lGlove.stand1.y.Value);
-
-				g.DrawImage(body, x + dx + 15, y + dy + 43);
-			}
-		}
-
-		private void RenderGloveRight(Graphics g, int x, int y) {
-			string path = Gdpath + "/Glove/" + glove.ToString("D8") + ".img/";
-			if (File.Exists(path + "stand1.0.rGlove.png")) {
-				Image body = Image.FromFile(path + "stand1.0.rGlove.png");
-				dynamic xml = new DynamicXml(File.ReadAllText(path + "coord.xml"));
-
-				int dx = Int32.Parse(xml._rGlove.stand1.x.Value);
-				int dy = Int32.Parse(xml._rGlove.stand1.y.Value);
-
-				g.DrawImage(body, x + dx + 15, y + dy + 43);
-			}
-		}
-
-		private void RenderShoes(Graphics g, int x, int y) {
-			string path = Gdpath + "/Shoes/" + shoes.ToString("D8") + ".img/";
-			Image body = Image.FromFile(path + "stand1.0.shoes.png");
-			dynamic xml = new DynamicXml(File.ReadAllText(path + "coord.xml"));
-
-			int dx = Int32.Parse(xml._shoes.stand1.x.Value);
-			int dy = Int32.Parse(xml._shoes.stand1.y.Value);
-
-			g.DrawImage(body, x + dx + 15, y + dy + 43);
-		}
-
-		private void RenderPants(Graphics g, int x, int y) {
-			string path = Gdpath + "/Pants/" + pants.ToString("D8") + ".img/";
-			Image body = Image.FromFile(path + "stand1.0.pants.png");
-			dynamic xml = new DynamicXml(File.ReadAllText(path + "coord.xml"));
-
-			int dx = Int32.Parse(xml._pants.stand1.x.Value);
-			int dy = Int32.Parse(xml._pants.stand1.y.Value);
-
-			g.DrawImage(body, x + dx + 15, y + dy + 43);
-		}
-
-		private void RenderAccFace(Graphics g, int x, int y) {
-			string path = Gdpath + "/Accessory/" + accface.ToString("D8") + ".img/";
-			Image img = Image.FromFile(path + "default.default.png");
-			dynamic xml = new DynamicXml(File.ReadAllText(path + "coord.xml"));
-
-			int dx = Int32.Parse(xml._default.x.Value);
-			int dy = Int32.Parse(xml._default.y.Value);
-
-			g.DrawImage(img, x + dx + 15, y + dy + 12);
-		}
-		
-		private void RenderAccEye(Graphics g, int x, int y) {
-			string path = Gdpath + "/Accessory/" + acceye.ToString("D8") + ".img/";
-			Image img = Image.FromFile(path + "default.default.png");
-			dynamic xml = new DynamicXml(File.ReadAllText(path + "coord.xml"));
-
-			int dx = Int32.Parse(xml._default.x.Value);
-			int dy = Int32.Parse(xml._default.y.Value);
-
-			g.DrawImage(img, x + dx + 15, y + dy + 12);
 		}
 
 		public static bool Between(int v, int bottom, int top) {
@@ -209,14 +108,14 @@ namespace maplewookie {
 			Shuffle(Ids.pants);
 			Shuffle(Ids.shoes);
 			Shuffle(Ids.glove);
-
+			
 			Character ret = new Character();
 			int skinrand = rand.Next(0, 101);
 			ret.skin = (skinrand > 96 ? 2002 : skinrand > 92 ? 2001 : 2000);
 			ret.face = Ids.face[0];
 			ret.hair = Ids.hair[0];
-			if (rand.Next(0, 101) > 85) ret.accface = Ids.accface[0];
-			if (rand.Next(0, 101) > 70) ret.acceye = Ids.acceye[0];
+			if (rand.Next(0, 101) > 45) ret.accface = Ids.accface[0];
+			if (rand.Next(0, 101) > 45) ret.acceye = Ids.acceye[0];
 			ret.coat = Ids.coat[0];
 			ret.pants = Ids.pants[0];
 			if (rand.Next(0, 101) > 5) ret.shoes = Ids.shoes[0];

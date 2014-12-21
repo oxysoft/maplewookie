@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Diagnostics;
 using System.Drawing;
 using System.Drawing.Imaging;
 using System.Runtime.InteropServices;
@@ -30,7 +31,11 @@ namespace maplewookie {
 				g.Clear(Color.Transparent);
 				Character c = Character.Random(0);
 				c.Render(g, xo, yo);
+//				Stopwatch sw = Stopwatch.StartNew();
 				TrimBitmap(bmp).Save(@"C:\output\" + i + ".png");
+				Console.WriteLine("Cache size: " + Cache.Count);
+//				sw.Stop();
+//				Console.WriteLine(sw.ElapsedMilliseconds);
 			}
 
 			pictureBox1.Image = bmp;
