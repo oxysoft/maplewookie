@@ -3,7 +3,9 @@
 
 A mass maplestory character generator and renderer written in C# using v104 GD files
 
-![Examples](http://i.imgur.com/o5VHvuU.png)
+![Frontend](http://i.imgur.com/1AdHJgB.png)
+
+![Thumbnails](http://i.imgur.com/o5VHvuU.png)
 
 ### Supported elements
 
@@ -29,7 +31,8 @@ A mass maplestory character generator and renderer written in C# using v104 GD f
 
 ### Todo
 
-- A nice front end for non technical users
+- Support for the rest of the equipments
+- Background image in the preview pane
 - Make a dumper program for the GD
 - Store all the data/pictures into nx and/or json files
 - Read the item pool at runtime rather than having the ids in static arrays
