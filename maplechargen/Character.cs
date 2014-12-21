@@ -65,6 +65,9 @@ namespace maplewookie {
 
 			if (hair > 0)
 				Cache.GetHair(hair).RenderFront(this, g, x, y);
+
+			if (hat > 0)
+				Cache.GetHat(hat).Render(g, x, y);
 		}
 
 		public static bool Between(int v, int bottom, int top) {
@@ -111,6 +114,7 @@ namespace maplewookie {
 			Shuffle(Ids.pants);
 			Shuffle(Ids.shoes);
 			Shuffle(Ids.glove);
+			Shuffle(Ids.cap);
 			
 			Character ret = new Character();
 			int skinrand = rand.Next(0, 101);
@@ -123,6 +127,7 @@ namespace maplewookie {
 			ret.pants = Ids.pants[0];
 			if (rand.Next(0, 101) > 5) ret.shoes = Ids.shoes[0];
 			if (rand.Next(0, 101) > 75) ret.glove = Ids.glove[0];
+			if (rand.Next(0, 101) > 25) ret.hat = Ids.cap[0];
 			return ret;
 		}
 

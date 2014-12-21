@@ -16,9 +16,10 @@ namespace maplewookie {
 		private static Dictionary<int, Gloves> gloves = new Dictionary<int, Gloves>();
 		private static Dictionary<int, AccFace> accsface = new Dictionary<int, AccFace>();
 		private static Dictionary<int, AccEye> accseye = new Dictionary<int, AccEye>();
+		private static Dictionary<int, Hat> hats = new Dictionary<int, Hat>();
 
 		public static int Count {
-			get { return skins.Count + faces.Count + hairs.Count + coats.Count + pants.Count + shoes.Count + gloves.Count + accsface.Count + accseye.Count; }
+			get { return skins.Count + faces.Count + hairs.Count + coats.Count + pants.Count + shoes.Count + gloves.Count + accsface.Count + accseye.Count + hats.Count; }
 		}
 
 		public static Skin GetSkin(int id) {
@@ -91,6 +92,14 @@ namespace maplewookie {
 
 			accseye.Add(id, new AccEye(id));
 			return accseye[id];
+		}
+
+		public static Hat GetHat(int id) {
+			if (hats.ContainsKey(id))
+				return hats[id];
+
+			hats.Add(id, new Hat(id));
+			return hats[id];
 		}
 	}
 }

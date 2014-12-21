@@ -54,6 +54,7 @@
     <Compile Include="elements\Face.cs" />
     <Compile Include="elements\Gloves.cs" />
     <Compile Include="elements\Hair.cs" />
+    <Compile Include="elements\Hat.cs" />
     <Compile Include="elements\Pants.cs" />
     <Compile Include="elements\Shoes.cs" />
     <Compile Include="elements\Skin.cs" />
