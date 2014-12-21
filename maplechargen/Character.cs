@@ -24,11 +24,14 @@ namespace maplewookie {
 			if (skin > 0)
 				Cache.GetSkin(skin).RenderBody(g, x, y);
 
-			if (shoes > 0)
+			if (shoes > 0 && Cache.GetShoes(shoes).z == 0)
 				Cache.GetShoes(shoes).Render(g, x, y);
 
 			if (pants > 0)
 				Cache.GetPants(pants).Render(g, x, y);
+
+			if (shoes > 0 && Cache.GetShoes(shoes).z == 1)
+				Cache.GetShoes(shoes).Render(g, x, y);
 
 			if (coat > 0)
 				Cache.GetCoat(coat).RenderBody(g, x, y);
