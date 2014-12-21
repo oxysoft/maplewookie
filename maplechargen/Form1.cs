@@ -2,43 +2,84 @@
 using System.Diagnostics;
 using System.Drawing;
 using System.Drawing.Imaging;
+using System.Linq;
 using System.Runtime.InteropServices;
+using System.Threading;
 using System.Windows.Forms;
 
 namespace maplewookie {
 	public partial class Form1 : Form {
 		public Bitmap bmp;
+		public Thread backgroundThread;
 
 		public Form1() {
 			InitializeComponent();
 
 			bmp = new Bitmap(pictureBox1.Width, pictureBox1.Height);
-			Generate();
+//			Generate();
 		}
 
 		private void onGenerateClicked(object sender, EventArgs e) {
-			Generate();
+			btnSave.Enabled = false;
+			btnGenerate.Enabled = false;
+			btnStop.Enabled = true;
+
+			backgroundThread = new Thread(Generate);
+			backgroundThread.Start();
 		}
 
 		public void Generate() {
 			Graphics g = Graphics.FromImage(bmp);
 			g.Clear(Color.Transparent);
 
-			const int xo = 100;
-			const int yo = 100;
+			int xo = pictureBox1.Width / 2 - 39/2;
+			int yo = pictureBox1.Height / 2 - 64/2;
 
-			for (int i = 0; i < 1; i++) {
+			progressBar1.BeginInvoke(new Action(() => {
+				progressBar1.Value = 0;
+				progressBar1.Maximum = (int) numericUpDown1.Value;
+			}));
+
+
+			for (int i = 0; i < numericUpDown1.Value; i++) {
 				g.Clear(Color.Transparent);
 				Character c = Character.Random(0);
 				c.Render(g, xo, yo);
-//				Stopwatch sw = Stopwatch.StartNew();
-				TrimBitmap(bmp).Save(@"C:\output\" + i + ".png");
-				Console.WriteLine("Cache size: " + Cache.Count);
-//				sw.Stop();
-//				Console.WriteLine(sw.ElapsedMilliseconds);
+				if (cbAutoSave.Checked) Save(i.ToString());
+				pictureBox1.Invoke(new Action(() => {
+					pictureBox1.Image = bmp;
+				}));
+				int i1 = i;
+				progressBar1.Invoke(new Action(() => {
+					progressBar1.Value = i1 + 1;
+				}));
 			}
 
-			pictureBox1.Image = bmp;
+			numericUpDown1.BeginInvoke(new Action(() => {
+				numericUpDown1.Enabled = true;
+			}));
+
+			btnGenerate.BeginInvoke(new Action(() => {
+				btnGenerate.Enabled = true;
+			}));
+
+			btnSave.BeginInvoke(new Action(() => {
+				btnSave.Enabled = true;
+			}));
+
+			btnStop.BeginInvoke(new Action(() => {
+				btnStop.Enabled = false;
+			}));
+		}
+
+		private void btnStop_Click(object sender, EventArgs e) {
+			backgroundThread.Abort();
+			progressBar1.Value = progressBar1.Maximum;
+		}
+
+
+		public void Save(string name) {
+			TrimBitmap(bmp).Save(@"C:\output\" + name + ".png");
 		}
 
 		// google had this in store for me
