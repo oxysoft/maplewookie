@@ -18,6 +18,9 @@ namespace maplewookie {
 			g.SmoothingMode = SmoothingMode.None;
 			g.InterpolationMode = InterpolationMode.NearestNeighbor;
 
+			if (hat > 0)
+				Cache.GetHat(hat).RenderBack(g, x, y);
+
 			if (hair > 0)
 				Cache.GetHair(hair).RenderBack(this, g, x, y);
 
@@ -67,7 +70,7 @@ namespace maplewookie {
 				Cache.GetHair(hair).RenderFront(this, g, x, y);
 
 			if (hat > 0)
-				Cache.GetHat(hat).Render(g, x, y);
+				Cache.GetHat(hat).RenderTop(g, x, y);
 		}
 
 		public static bool Between(int v, int bottom, int top) {

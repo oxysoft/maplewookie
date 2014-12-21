@@ -8,6 +8,7 @@ A mass maplestory character generator and renderer written in C# using v104 GD f
 ### Supported elements
 
 - Body/Head/Arm
+- Hats
 - Face accessory
 - Eye accessory
 - Top
