@@ -40,8 +40,7 @@ namespace maplewookie.elements {
 				topdy = Int32.Parse(xml._default.y.Value);
 			} catch (FileNotFoundException e) {
 				isError = true;
-				Console.WriteLine(e);
-				throw;
+				Console.WriteLine("File not found: " + e.FileName);
 			}
 		}
 

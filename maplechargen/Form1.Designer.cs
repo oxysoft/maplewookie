@@ -23,6 +23,7 @@
 		/// the contents of this method with the code editor.
 		/// </summary>
 		private void InitializeComponent() {
+			System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Form1));
 			this.btnGenerate = new System.Windows.Forms.Button();
 			this.pictureBox1 = new System.Windows.Forms.PictureBox();
 			this.btnSave = new System.Windows.Forms.Button();
@@ -43,9 +44,9 @@
 			// 
 			// btnGenerate
 			// 
-			this.btnGenerate.Location = new System.Drawing.Point(9, 53);
+			this.btnGenerate.Location = new System.Drawing.Point(5, 53);
 			this.btnGenerate.Name = "btnGenerate";
-			this.btnGenerate.Size = new System.Drawing.Size(119, 23);
+			this.btnGenerate.Size = new System.Drawing.Size(126, 23);
 			this.btnGenerate.TabIndex = 0;
 			this.btnGenerate.Text = "Generate";
 			this.btnGenerate.UseVisualStyleBackColor = true;
@@ -62,9 +63,9 @@
 			// 
 			// btnSave
 			// 
-			this.btnSave.Location = new System.Drawing.Point(9, 82);
+			this.btnSave.Location = new System.Drawing.Point(5, 82);
 			this.btnSave.Name = "btnSave";
-			this.btnSave.Size = new System.Drawing.Size(119, 23);
+			this.btnSave.Size = new System.Drawing.Size(126, 23);
 			this.btnSave.TabIndex = 1;
 			this.btnSave.Text = "Save";
 			this.btnSave.UseVisualStyleBackColor = true;
@@ -133,6 +134,8 @@
 			// 
 			this.cbAutoSave.AutoSize = true;
 			this.cbAutoSave.CheckAlign = System.Drawing.ContentAlignment.MiddleRight;
+			this.cbAutoSave.Checked = true;
+			this.cbAutoSave.CheckState = System.Windows.Forms.CheckState.Checked;
 			this.cbAutoSave.Location = new System.Drawing.Point(7, 4);
 			this.cbAutoSave.MinimumSize = new System.Drawing.Size(122, 0);
 			this.cbAutoSave.Name = "cbAutoSave";
@@ -155,7 +158,7 @@
 			// 
 			// progressBar1
 			// 
-			this.progressBar1.Location = new System.Drawing.Point(5, 233);
+			this.progressBar1.Location = new System.Drawing.Point(5, 204);
 			this.progressBar1.Name = "progressBar1";
 			this.progressBar1.Size = new System.Drawing.Size(126, 23);
 			this.progressBar1.TabIndex = 7;
@@ -163,7 +166,7 @@
 			// btnStop
 			// 
 			this.btnStop.Enabled = false;
-			this.btnStop.Location = new System.Drawing.Point(5, 204);
+			this.btnStop.Location = new System.Drawing.Point(5, 233);
 			this.btnStop.Name = "btnStop";
 			this.btnStop.Size = new System.Drawing.Size(126, 23);
 			this.btnStop.TabIndex = 8;
@@ -178,6 +181,7 @@
 			this.ClientSize = new System.Drawing.Size(376, 261);
 			this.Controls.Add(this.splitContainer1);
 			this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
+			this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
 			this.Name = "Form1";
 			this.Text = "MapleWookie";
 			((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();

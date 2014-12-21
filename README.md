@@ -20,7 +20,7 @@ A mass maplestory character generator and renderer written in C# using v104 GD f
 ### Requirements
 
 - Visual studio 2013
-- Maplestory v104 GDs ([]( "link"))
+- Maplestory v104 GDs ([link](https://drive.google.com/file/d/0B1BJqPPfhZhdRjNLUFpjbWgxWVk/view?usp=sharing "link"))
 
 ### Usage
 
@@ -32,8 +32,6 @@ A mass maplestory character generator and renderer written in C# using v104 GD f
 
 ### Todo
 
-- Cache elements and their information
-- Refactor every elements into neat classes
 - A nice front end for non technical users
 - Make a dumper program for the GD
 - Store all the data/pictures into nx and/or json files
