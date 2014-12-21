@@ -3,7 +3,7 @@
 
 A mass maplestory character generator and renderer written in C# using v104 GD files
 
-![Frontend](http://i.imgur.com/1AdHJgB.png)
+![Frontend](http://i.imgur.com/zItqcUj.png)
 
 ![Thumbnails](http://i.imgur.com/o5VHvuU.png)
 
