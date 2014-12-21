@@ -2,6 +2,7 @@
 using System.Diagnostics;
 using System.Drawing;
 using System.Drawing.Imaging;
+using System.IO;
 using System.Linq;
 using System.Runtime.InteropServices;
 using System.Threading;
@@ -17,6 +18,21 @@ namespace maplewookie {
 
 			bmp = new Bitmap(pictureBox1.Width, pictureBox1.Height);
 //			Generate();
+		}
+
+		private void Form1_Load(object sender, EventArgs e) {
+			if (!Directory.Exists(@"C:\maplewookie\"))
+				Directory.CreateDirectory(@"C:\maplewookie\");
+
+			if (!Directory.Exists(@"C:\maplewookie\output"))
+				Directory.CreateDirectory(@"C:\maplewookie\output");
+
+			if (!Directory.Exists(@"C:\maplewookie\gd")) {
+				MessageBox.Show(@"Please create the gd folder under C:\maplewookie\", "Error",
+					MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+				
+				Application.Exit();
+			}
 		}
 
 		private void onGenerateClicked(object sender, EventArgs e) {
@@ -79,7 +95,7 @@ namespace maplewookie {
 
 
 		public void Save(string name) {
-			TrimBitmap(bmp).Save(@"C:\output\" + name + ".png");
+			TrimBitmap(bmp).Save(@"C:\maplewookie\output\" + name + ".png");
 		}
 
 		// google had this in store for me

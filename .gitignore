@@ -4,3 +4,6 @@
 
 /maplechargen/bin/Debug
 /maplechargen/obj/Debug
+/maplechargen/obj/Release
+/maplechargen/bin/Release
+*.user
